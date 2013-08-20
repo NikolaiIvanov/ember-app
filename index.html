@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Ember App</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-responsive.css">
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/vendor/bootstrap.js"></script>  
+    <script src="js/vendor/handlebars.js"></script>
+    <script src="js/vendor/ember.js"></script>
+    <script src="js/vendor/ember-data.min.js"></script>
+    <script src="js/vendor/localstorageAdapter.js"></script>
+    <script src="js/app/app.js"></script>
+    <script src="js/app/store.js"></script>
+    <script src="js/app/router.js"></script>
+    <script src="js/app/controllers/bookmarks.js"></script>
+    <script src="js/app/controllers/bookmarksNew.js"></script>
+    <script src="js/app/models/bookmark.js"></script>
+    <script src="js/app/routes/bookmarksNew.js"></script>
+    <script src="js/app/routes/bookmarks.js"></script>
+  </head>
+<body>
+
+  <script type='text/x-handlebars'>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          {{#linkTo "index" class="brand"}}EmberJS App{{/linkTo}}
+          <div class="nav-collapse collapse navbar-responsive-collapse">
+            <ul class="nav">
+              <li>{{#linkTo "index"}}Home{{/linkTo}}</li>
+              <li>{{#linkTo "bookmarks"}}Bookmarks{{/linkTo}}</li>          
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">      
+      <div class="well">    
+      {{outlet}}
+      </div>
+    </div>
+  </script>
+  <script type="text/x-handlebars" data-template-name="index">
+    <h4>Welcome to simple EmberJS App.</h4>
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="bookmarks">
+    <h4>All my bookmarks</h4>
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>URL</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      {{#each controller}}
+      <tr>
+        <td>{{title}}</td>
+        <td>{{url}}</td>
+        
+      </tr>
+      {{else}}
+      <tr>
+        <td  colspan="3" style="text-align:center;">
+          <div class="alert alert-info">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Ooops!</strong> You have no bookmarks yet.
+          </div>          
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  {{#linkTo "bookmarks.new" class="btn btn-info"}}Add new bookmark{{/linkTo}}
+
+  {{outlet}}
+  </script>
+
+  <script type="text/x-handlebars" data-template-name="bookmarks/new">
+    <hr>
+    <h3>New bookmark</h3>
+    <form {{action "save" on="submit"}} class="form-inline">
+      {{view Ember.TextField valueBinding="title" placeholder="Fill in a title" class="input"}}
+      {{view Ember.TextField valueBinding="url" placeholder="Fill in a URL" class="input"}}
+      <button type="submit" class="btn">Add new bookmark</button>
+    </form>
+  </script>
+
+</body>
+</html>
