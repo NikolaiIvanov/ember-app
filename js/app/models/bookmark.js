@@ -9,10 +9,3 @@ App.Bookmark = DS.Model.extend({
   }.observes("favorite")
   
 });
-App.Bookmark.FIXTURES = [
-  {
-    title: "ThreadSuite",
-    url: "http://yhreadsuite.com",
-    favorite: false
-  }
-];
