@@ -17,6 +17,7 @@
     <script src="js/app/controllers/bookmarks.js"></script>
     <script src="js/app/controllers/bookmarksNew.js"></script>
     <script src="js/app/models/bookmark.js"></script>
+    <script src="js/app/models/sampleBookmarks.js"></script>
     <script src="js/app/routes/bookmarksNew.js"></script>
     <script src="js/app/routes/bookmarks.js"></script>
   </head>
@@ -41,8 +42,8 @@
         </div>
       </div>
     </div>
-    <div class="container">      
-      <div class="well">    
+    <div class="container">
+      <div class="well">
       {{outlet}}
       </div>
     </div>
@@ -52,29 +53,67 @@
   </script>
 
   <script type="text/x-handlebars" data-template-name="bookmarks">
-    <h4>All my bookmarks</h4>
-    <table class="table table-bordered">
+  {{partial "bookmarkcontrols"}}
+  <h4>You have {{controller.length}} bookmarks</h4>
+  <table class="table table-bordered">
+    <colgroup align="left">
+    <col width="30%">
+    <col>
+    <col width="80">
+    </colgroup>
     <thead>
       <tr>
         <th>Title</th>
         <th>URL</th>
-        
+        <th>Favorite!</th>
       </tr>
     </thead>
     <tbody>
-      {{#each controller}}
+      {{#each controller.favorites}}
       <tr>
         <td>{{title}}</td>
         <td>{{url}}</td>
-        
+        <td>{{view Ember.Checkbox checkedBinding="favorite"}}</td>
       </tr>
       {{else}}
       <tr>
         <td  colspan="3" style="text-align:center;">
           <div class="alert alert-info">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Ooops!</strong> You have no bookmarks yet.
-          </div>          
+            <strong>Ooops!</strong> You have no favorite bookmarks yet.
+          </div>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  <table class="table table-bordered">
+    <colgroup align="left">
+    <col width="30%">
+    <col>
+    <col width="80">
+    </colgroup>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>URL</th>
+        <th>Favorite!</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each controller.regular}}
+      <tr>
+        <td>{{title}}</td>
+        <td>{{url}}</td>
+        <td>{{view Ember.Checkbox checkedBinding="favorite"}}</td>
+      </tr>
+      {{else}}
+      <tr>
+        <td  colspan="3" style="text-align:center;">
+          <div class="alert alert-block">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Ooops!</strong> You have no regular bookmarks yet.
+          </div>
         </td>
       </tr>
       {{/each}}
@@ -82,10 +121,15 @@
   </table>
 
   {{#linkTo "bookmarks.new" class="btn btn-info"}}Add new bookmark{{/linkTo}}
-
   {{outlet}}
+    <!--<a class="btn btn-danger" href="#/bookmarks" target="_self" onclick="localStorage.clear();">
+      Clean localStorage
+    </a>
+    <button {{action "clearLS" on="click"}}>Clear local storage</button>-->
   </script>
-
+  <script type="text/x-handlebars" data-template-name="_bookmarkcontrols">
+  WAZUP!
+  </script>
   <script type="text/x-handlebars" data-template-name="bookmarks/new">
     <hr>
     <h3>New bookmark</h3>
