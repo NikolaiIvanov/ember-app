@@ -7,5 +7,5 @@ App.Bookmark = DS.Model.extend({
     this.get("transaction").commit();
     console.log("Transaction was commited.");
   }.observes("favorite")
-  
+
 });

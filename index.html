@@ -6,9 +6,10 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap-responsive.css">
     <script src="js/vendor/jquery.js"></script>
-    <script src="js/vendor/bootstrap.js"></script>  
+    <script src="js/vendor/bootstrap.js"></script>
     <script src="js/vendor/handlebars.js"></script>
     <script src="js/vendor/ember.js"></script>
+    <script src="js/vendor/ember-bootstrap.js"></script>
     <script src="js/vendor/ember-data.min.js"></script>
     <script src="js/vendor/localstorageAdapter.js"></script>
     <script src="js/app/app.js"></script>
@@ -36,7 +37,7 @@
           <div class="nav-collapse collapse navbar-responsive-collapse">
             <ul class="nav">
               <li>{{#linkTo "index"}}Home{{/linkTo}}</li>
-              <li>{{#linkTo "bookmarks"}}Bookmarks{{/linkTo}}</li>          
+              <li>{{#linkTo "bookmarks"}}Bookmarks{{/linkTo}}</li>
             </ul>
           </div>
         </div>
@@ -78,10 +79,7 @@
       {{else}}
       <tr>
         <td  colspan="3" style="text-align:center;">
-          <div class="alert alert-info">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Ooops!</strong> You have no favorite bookmarks yet.
-          </div>
+        {{view Bootstrap.AlertMessage type="success" message="<strong>Ooops!</strong> You have no favorite bookmarks yet."}}
         </td>
       </tr>
       {{/each}}
@@ -110,10 +108,7 @@
       {{else}}
       <tr>
         <td  colspan="3" style="text-align:center;">
-          <div class="alert alert-block">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Ooops!</strong> You have no regular bookmarks yet.
-          </div>
+        {{view Bootstrap.AlertMessage type="alert" message="<strong>Ooops!</strong> You have no regular bookmarks."}}
         </td>
       </tr>
       {{/each}}
@@ -130,7 +125,7 @@
 
   <script type="text/x-handlebars" data-template-name="bookmarks/new">
     <hr>
-    <h3>New bookmark</h3>
+    <h3>New bookmark</h3>    
     <form {{action "save" on="submit"}} class="form-inline">
       {{view Ember.TextField valueBinding="title" placeholder="Fill in a title" class="input"}}
       {{view Ember.TextField valueBinding="url" placeholder="Fill in a URL" class="input"}}
